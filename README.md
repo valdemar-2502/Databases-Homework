@@ -72,4 +72,70 @@
 
 В качестве решения приложите SQL скрипт и скриншот диаграммы.
 
+---
+Решение
+---
+### SQL скрипт
+---
+
+```
+-- 1. Таблица-справочник должностей
+CREATE TABLE positions (
+    position_id SERIAL PRIMARY KEY,
+    position_name VARCHAR(100) UNIQUE NOT NULL
+);
+
+-- 2. Таблица-справочник подразделений
+CREATE TABLE departments (
+    department_id SERIAL PRIMARY KEY,
+    department_name VARCHAR(255) NOT NULL,
+    department_type VARCHAR(50) NOT NULL -- Например: 'Отдел', 'Группа', 'Департамент'
+);
+
+-- 3. Таблица-справочник адресов филиалов
+CREATE TABLE branch_addresses (
+    address_id SERIAL PRIMARY KEY,
+    full_address VARCHAR(255) UNIQUE NOT NULL,
+    city VARCHAR(100),
+    street VARCHAR(200),
+    building VARCHAR(20)
+);
+
+-- 4. Таблица-справочник проектов
+CREATE TABLE projects (
+    project_id SERIAL PRIMARY KEY,
+    project_name VARCHAR(255) UNIQUE NOT NULL
+);
+
+-- 5. Основная таблица сотрудников
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL,
+    salary NUMERIC(10,2) NOT NULL,
+    hire_date DATE NOT NULL,
+    position_id INTEGER NOT NULL REFERENCES positions(position_id),
+    department_id INTEGER NOT NULL REFERENCES departments(department_id),
+    branch_address_id INTEGER NOT NULL REFERENCES branch_addresses(address_id)
+);
+
+-- 6. Связующая таблица для связи "многие-ко-многим" между сотрудниками и проектами
+CREATE TABLE employee_projects (
+    employee_project_id SERIAL PRIMARY KEY,
+    employee_id INTEGER NOT NULL REFERENCES employees(employee_id) ON DELETE CASCADE,
+    project_id INTEGER NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+    UNIQUE(employee_id, project_id) -- Чтобы один сотрудник не был назначен на один проект дважды
+);
+
+-- Индексы для ускорения поиска по внешним ключам (рекомендуется для больших таблиц)
+CREATE INDEX idx_employees_position_id ON employees(position_id);
+CREATE INDEX idx_employees_department_id ON employees(department_id);
+CREATE INDEX idx_employees_branch_address_id ON employees(branch_address_id);
+CREATE INDEX idx_employee_projects_employee_id ON employee_projects(employee_id);
+CREATE INDEX idx_employee_projects_project_id ON employee_projects(project_id);
+```
+
+---
+![database](https://github.com/valdemar-2502/Databases-Homework/blob/main/Diagram_Database.png)
+![database](https://github.com/valdemar-2502/Databases-Homework/blob/main/Diagram_Database.png)
+
 Для написания и редактирования sql удобно использовать  специальный инструмент dbeaver.
