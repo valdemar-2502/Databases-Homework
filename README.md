@@ -56,7 +56,7 @@
 ---
 Решение
 ---
-![database](https://github.com/valdemar-2502/-ELK--Homework/blob/main/elastic-filebeat.png)
+![database](https://github.com/valdemar-2502/Databases-Homework/blob/main/Diagram_Database.png)
 
 ## Дополнительные задания (со звёздочкой*)
 Эти задания дополнительные, то есть не обязательные к выполнению. Вы можете их выполнить, если хотите глубже и шире разобраться в материале.
