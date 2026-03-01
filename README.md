@@ -135,7 +135,7 @@ CREATE INDEX idx_employee_projects_project_id ON employee_projects(project_id);
 ```
 
 ---
-![database](https://github.com/valdemar-2502/Databases-Homework/blob/main/Diagram_Database.png)
-![database](https://github.com/valdemar-2502/Databases-Homework/blob/main/Diagram_Database.png)
+![database1](https://github.com/valdemar-2502/Databases-Homework/blob/main/Database1.png)
+![database2](https://github.com/valdemar-2502/Databases-Homework/blob/main/Database2.png)
 
 Для написания и редактирования sql удобно использовать  специальный инструмент dbeaver.
